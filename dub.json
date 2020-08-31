@@ -1,0 +1,13 @@
+{
+	"authors": [
+		"Kyle Vasilia"
+	],
+	"dependencies": {
+		"bindbc-loader": "~>0.3.2"
+	},
+	"description": "Keep-Stuff-Simple Graphic Solutions glslang Dlang bindings - WIP",
+	"license": "WTFPL",
+	"name": "kssgs-glslang",
+	"sourcePaths": ["source"],
+	"targetType": "executable"
+}
