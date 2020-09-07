@@ -3,6 +3,7 @@
 		"Kyle Vasilia"
 	],
 	"dependencies": {
+		"spirv_cross": "~>0.4.0",
 		"bindbc-loader": "~>0.3.2"
 	},
 	"description": "Keep-Stuff-Simple Graphic Solutions glslang Dlang bindings - WIP",
