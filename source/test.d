@@ -1,7 +1,7 @@
 module test;
 
-import kssgs.glslang.binddynamic;
+import kssgs.shaderc.binddynamic;
 
 void main() {
-    loadGlslang("test.dll");
+    loadShaderC("shaderc.dll");
 }

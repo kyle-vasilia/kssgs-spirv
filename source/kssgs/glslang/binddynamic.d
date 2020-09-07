@@ -39,7 +39,7 @@ extern(C) @nogc nothrow {
 	alias pglslang_program_get_info_debug_log = const char* function(glslang_program_t* program);
 }
 __gshared {
-	pglslang_initialize_process glslang_initialize_process;
+	export extern (Windows)pglslang_initialize_process glslang_initialize_process;
 	pglslang_finalize_process glslang_finalize_process;
 	pglslang_shader_create glslang_shader_create;
 	pglslang_shader_delete glslang_shader_delete;
@@ -61,16 +61,19 @@ __gshared {
 	pglslang_program_get_info_debug_log glslang_program_get_info_debug_log;
 private {
 	SharedLib lib;
+	SharedLib lib2;
 }
 
 
 bool loadGlslang(const (char)* libName) {
-    
+    lib2 = load("spirv.dll");
     lib = load(libName);
+	
     import std.stdio;
-    if(lib == invalidHandle) {
+    if(lib2 == invalidHandle) {
         writeln("test");
     }
+	
 	lib.bindSymbol(cast(void**)&glslang_initialize_process, "glslang_initialize_process");
 	lib.bindSymbol(cast(void**)&glslang_finalize_process, "glslang_finalize_process");
 	lib.bindSymbol(cast(void**)&glslang_shader_create, "glslang_shader_create");
@@ -86,11 +89,11 @@ bool loadGlslang(const (char)* libName) {
 	lib.bindSymbol(cast(void**)&glslang_program_link, "glslang_program_link");
     
     writeln(errorCount());
-	lib.bindSymbol(cast(void**)&glslang_program_SPIRV_generate, "glslang_program_SPIRV_generate");
-	lib.bindSymbol(cast(void**)&glslang_program_SPIRV_get_size, "glslang_program_SPIRV_get_size");
-	lib.bindSymbol(cast(void**)&glslang_program_SPIRV_get, "glslang_program_SPIRV_get");
-	lib.bindSymbol(cast(void**)&glslang_program_SPIRV_get_ptr, "glslang_program_SPIRV_get_ptr");
-	lib.bindSymbol(cast(void**)&glslang_program_SPIRV_get_messages, "glslang_program_SPIRV_get_messages");
+	lib2.bindSymbol(cast(void**)&glslang_program_SPIRV_generate, "glslang_program_SPIRV_generate");
+	lib2.bindSymbol(cast(void**)&glslang_program_SPIRV_get_size, "glslang_program_SPIRV_get_size");
+	lib2.bindSymbol(cast(void**)&glslang_program_SPIRV_get, "glslang_program_SPIRV_get");
+	lib2.bindSymbol(cast(void**)&glslang_program_SPIRV_get_ptr, "glslang_program_SPIRV_get_ptr");
+	lib2.bindSymbol(cast(void**)&glslang_program_SPIRV_get_messages, "glslang_program_SPIRV_get_messages");
     writeln(errorCount());
 
 	lib.bindSymbol(cast(void**)&glslang_program_get_info_log, "glslang_program_get_info_log");
